@@ -14,6 +14,9 @@
 
 """Render script."""
 
+import jax.tools.colab_tpu
+jax.tools.colab_tpu.setup_tpu()
+
 import concurrent.futures
 import functools
 import glob
