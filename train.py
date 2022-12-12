@@ -14,6 +14,9 @@
 
 """Training script."""
 
+import jax.tools.colab_tpu
+jax.tools.colab_tpu.setup_tpu()
+
 import functools
 import gc
 import time
