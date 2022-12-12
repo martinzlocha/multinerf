@@ -532,7 +532,7 @@ class Blender(Dataset):
         # Convert image to sRGB color space.
         image = lib_image.linear_to_srgb(np.stack(channels, axis=-1))
       else:
-        image = get_img('.png') / 255.
+        image = get_img('') / 255.
       images.append(image)
 
       if self._load_disps:
@@ -551,8 +551,9 @@ class Blender(Dataset):
       self.normal_images = np.stack(normal_images, axis=0)
       self.alphas = self.images[..., -1]
 
-    rgb, alpha = self.images[..., :3], self.images[..., -1:]
-    self.images = rgb * alpha + (1. - alpha)  # Use a white background.
+    if self.images.shape[3] == 4:
+      rgb, alpha = self.images[..., :3], self.images[..., -1:]
+      self.images = rgb * alpha + (1. - alpha)  # Use a white background.
     self.height, self.width = self.images.shape[1:3]
     self.camtoworlds = np.stack(cams, axis=0)
     self.focal = .5 * self.width / np.tan(.5 * float(meta['camera_angle_x']))
