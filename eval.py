@@ -14,6 +14,9 @@
 
 """Evaluation script."""
 
+import jax.tools.colab_tpu
+jax.tools.colab_tpu.setup_tpu()
+
 import functools
 from os import path
 import sys
